@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets | Blue Splash Waterpark</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Book your adventure at Blue Splash. Choose from our premium ticket packages and family deals.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind v4 Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ocean: '#0A192F',
+              azure: '#0EA5E9',
+              sunset: '#F59E0B',
+              jungle: '#10B981',
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css?v=1.0.3">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+</head>
+<body class="bg-slate-50">
+
+    <!-- Premium Navigation -->
+    <header id="main-header" class="scrolled">
+        <nav class="container nav-wrapper">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo.jpeg" alt="Blue Splash Logo" id="nav-logo" class="h-12 rounded-lg">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#rides">Rides</a></li>
+                <li><a href="tickets.html" class="text-orange-400">Tickets</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <div class="header-cta hidden md:block">
+                <button class="btn btn-primary btn-sm" onclick="openBooking()">Reserve Now</button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <!-- Tickets Hero -->
+        <section class="relative h-[60vh] flex items-center overflow-hidden">
+            <img src="assets/images/tickets_hero.png" alt="Tickets Hero" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-ocean/60 backdrop-blur-[2px]"></div>
+            <div class="container relative z-10 text-white" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-azure/20 border border-azure/30 backdrop-blur-md text-azure mb-6 text-sm font-bold uppercase tracking-widest">Pricing & Passes</span>
+                <h1 class="text-5xl md:text-7xl font-black mb-4">Choose Your <br><span class="text-sunset">Adventure</span></h1>
+                <p class="text-xl opacity-80 max-w-xl">Find the perfect pass for your family. All tickets include full access to slides, wave pools, and the lazy river.</p>
+            </div>
+        </section>
+
+        <!-- Ticket Grid -->
+        <section class="py-20">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Standard Adult -->
+                    <div class="glass p-8 rounded-[40px] border-white/40 flex flex-col items-center text-center group hover:bg-white/20 transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-16 h-16 rounded-3xl ocean-grad flex items-center justify-center mb-6 shadow-xl shadow-azure/20">
+                            <span class="text-2xl">🎟</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ocean mb-2">Adult Pass</h3>
+                        <p class="text-slate-500 mb-6 text-sm">Full all-day access for thrill-seekers aged 12 and above.</p>
+                        <div class="text-4xl font-black text-ocean mb-8">₹899 <span class="text-sm font-normal text-slate-400">/day</span></div>
+                        <ul class="w-full text-left space-y-4 mb-10">
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-azure">✓</span> Unlimited Slides Access</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-azure">✓</span> Wave Pool Premium Zone</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-azure">✓</span> Free Locker Access</li>
+                        </ul>
+                        <button class="btn btn-primary w-full mt-auto" onclick="openBooking()">Get Tickets</button>
+                    </div>
+
+                    <!-- Family VIP (Highlighted) -->
+                    <div class="glass p-10 rounded-[40px] border-sunset/30 bg-white shadow-2xl shadow-sunset/10 relative overflow-hidden group hover:-translate-y-2 transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
+                        <div class="absolute top-6 right-6 px-4 py-1 rounded-full bg-sunset text-ocean text-[10px] font-black uppercase tracking-tighter">Best Seller</div>
+                        <div class="w-16 h-16 rounded-3xl sunset-grad flex items-center justify-center mb-6 shadow-xl shadow-sunset/20">
+                            <span class="text-2xl">👨‍👩‍👧</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ocean mb-2">Family VIP Bundle</h3>
+                        <p class="text-slate-500 mb-6 text-sm">The ultimate value for a family of four. Memories starting here.</p>
+                        <div class="text-4xl font-black text-sunset mb-8">₹2,499 <span class="text-sm font-normal text-slate-400">/group</span></div>
+                        <ul class="w-full text-left space-y-4 mb-10">
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-sunset">★</span> 2 Adults + 2 Children</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-sunset">★</span> Dedicated Fast-Pass Entry</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-sunset">★</span> Food & Beverage Coupons</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-sunset">★</span> Premium Cabana Access</li>
+                        </ul>
+                        <button class="btn btn-primary w-full shadow-lg shadow-sunset/40" onclick="openBooking()">Reserve VIP Bundle</button>
+                    </div>
+
+                    <!-- Kids Adventure -->
+                    <div class="glass p-8 rounded-[40px] border-white/40 flex flex-col items-center text-center group hover:bg-white/20 transition-all duration-500" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-16 h-16 rounded-3xl jungle-grad flex items-center justify-center mb-6 shadow-xl shadow-jungle/20">
+                            <span class="text-2xl">🎠</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ocean mb-2">Junior Explorer</h3>
+                        <p class="text-slate-500 mb-6 text-sm">Safe and exciting fun for our little heroes aged 3-11.</p>
+                        <div class="text-4xl font-black text-ocean mb-8">₹599 <span class="text-sm font-normal text-slate-400">/day</span></div>
+                        <ul class="w-full text-left space-y-4 mb-10">
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-jungle">✓</span> Kids Zone Exclusive Access</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-jungle">✓</span> Safety Life Jacket Included</li>
+                            <li class="flex items-center gap-3 text-slate-600"><span class="text-jungle">✓</span> Junior Slide Certificate</li>
+                        </ul>
+                        <button class="btn btn-primary w-full mt-auto" onclick="openBooking()">Get Tickets</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terms Banner -->
+        <section class="py-10 bg-ocean text-white/40 text-[10px] uppercase tracking-widest text-center">
+            * All tickets are non-refundable. Children under 3 enter free. Prices inclusive of all taxes.
+        </section>
+    </main>
+
+    <!-- Footer remains same -->
+    <footer class="main-footer">
+        <!-- Reusing footer from index.html -->
+    </footer>
+
+    <!-- Booking Modal -->
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <div class="wizard-nav">
+                <div class="wizard-nav-item active"><div class="nav-dot"></div><span class="nav-label">Date</span></div>
+                <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Tickets</span></div>
+                <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Add-ons</span></div>
+                <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Billing</span></div>
+                <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Final</span></div>
+            </div>
+
+            <div class="modal-header">
+                <h3 id="modal-title">SELECT VISIT DATE</h3>
+                <div class="close-modal">&times;</div>
+            </div>
+
+            <div class="modal-body !pt-2">
+                <!-- Step 1: Calendar -->
+                <div id="step-1" class="wizard-step active">
+                    <div class="calendar-header">
+                        <button id="prev-month" class="cal-nav-btn">←</button>
+                        <h4 id="calendar-month-year">MARCH 2026</h4>
+                        <button id="next-month" class="cal-nav-btn">→</button>
+                    </div>
+                    <div class="calendar-grid-header grid grid-cols-7 gap-2 mb-2 p-0">
+                        <div class="text-center text-[10px] font-bold text-slate-400">SUN</div>
+                        <div class="text-center text-[10px] font-bold text-slate-400">MON</div>
+                        <div class="text-center text-[10px] font-bold text-slate-400">TUE</div>
+                        <div class="text-center text-[10px] font-bold text-slate-400">WED</div>
+                        <div class="text-center text-[10px] font-bold text-slate-400">THU</div>
+                        <div class="text-center text-[10px] font-bold text-slate-400">FRI</div>
+                        <div class="text-center text-[10px] font-bold text-slate-400">SAT</div>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid mb-4"></div>
+                    <button class="btn btn-primary w-full shadow-lg !py-4" onclick="nextStep(2)">Proceed</button>
+                </div>
+
+                <!-- Step 2: Grab Your Tickets -->
+                <div id="step-2" class="wizard-step">
+                    <div class="ticket-list custom-scrollbar max-h-[400px] overflow-y-auto pr-2">
+                        <!-- Adult -->
+                        <div class="ticket-card">
+                            <img src="assets/images/adult.png" alt="Adult">
+                            <div class="ticket-details">
+                                <h4>Adult</h4>
+                                <p>Unlimited access to all rides</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹899.00</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="adult" onclick="updateQty('adult', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('adult', -1)">-</button>
+                                    <span id="qty-adult" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('adult', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Child -->
+                        <div class="ticket-card">
+                            <img src="assets/images/child.png" alt="Child">
+                            <div class="ticket-details">
+                                <h4>Child</h4>
+                                <p>Height between 85-140cms</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹599.02</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="child" onclick="updateQty('child', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('child', -1)">-</button>
+                                    <span id="qty-child" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('child', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Senior -->
+                        <div class="ticket-card">
+                            <img src="assets/images/senior.png" alt="Senior">
+                            <div class="ticket-details">
+                                <h4>Senior Citizen</h4>
+                                <p>Ages 60+ (ID Required)</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹666.74</span>
+                                    <span class="price-old">₹899</span>
+                                    <span class="discount-tag">25% OFF</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="senior" onclick="updateQty('senior', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('senior', -1)">-</button>
+                                    <span id="qty-senior" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('senior', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Student -->
+                        <div class="ticket-card">
+                            <img src="assets/images/student.png" alt="Student">
+                            <div class="ticket-details">
+                                <h4>Student ID Offer</h4>
+                                <p>Valid ID card mandatory</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹399.15</span>
+                                    <span class="price-old">₹899</span>
+                                    <span class="discount-tag">55% OFF</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="student" onclick="updateQty('student', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('student', -1)">-</button>
+                                    <span id="qty-student" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('student', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Add-ons (Mocked) -->
+                <div id="step-3" class="wizard-step">
+                    <div class="bg-blue-50 p-6 rounded-3xl text-center">
+                        <div class="text-4xl mb-4">🍽️</div>
+                        <h4 class="text-ocean font-bold text-lg mb-2">Meal Combos</h4>
+                        <p class="text-slate-500 text-sm mb-6">Pre-book your meals and save up to 20%!</p>
+                        <button class="btn btn-primary bg-white !text-ocean border-2 border-ocean !py-3" onclick="nextStep(4)">Skip & Proceed</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review Your Booking -->
+                <div id="step-4" class="wizard-step">
+                    <div class="billing-summary">
+                        <div class="summary-header">
+                            <div>
+                                <h4 class="text-ocean font-black uppercase text-xl">Booking Summary</h4>
+                                <div class="summary-loc mt-2">📍 Bhubaneswar</div>
+                            </div>
+                        </div>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <label>Date of Visit</label>
+                                <span id="summary-date">24 Mar 2026</span>
+                            </div>
+                            <div class="summary-item">
+                                <label>Visitors</label>
+                                <span id="summary-visitors">1</span>
+                            </div>
+                            <div class="summary-item">
+                                <label>Total Cost</label>
+                                <span id="summary-total">₹1084.40</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-full mt-6 bg-blue-600 !py-3 !rounded-xl" onclick="void(0)">VIEW & EDIT DETAILS</button>
+                    </div>
+
+                    <form onsubmit="submitBooking(event)">
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Full Name*" class="w-full p-4 rounded-xl border-2 border-slate-100 bg-white" required>
+                            <input type="email" placeholder="Email Address*" class="w-full p-4 rounded-xl border-2 border-slate-100 bg-white" required>
+                            <div class="flex gap-2">
+                                <div class="w-20 p-4 rounded-xl border-2 border-slate-100 bg-white text-center text-sm font-bold">+91</div>
+                                <input type="tel" placeholder="Mobile Number*" class="flex-1 p-4 rounded-xl border-2 border-slate-100 bg-white" required>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-slate-500">
+                                <input type="checkbox" required> I agree to the <a href="#" class="text-blue-600 underline">Terms & Conditions</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-full shadow-xl bg-blue-700 !py-4">BOOK NOW</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 5: Final Payment Mock -->
+                <div id="step-5" class="wizard-step">
+                    <div class="bg-yellow-400 -m-8 p-8 pb-12 mb-4 text-center">
+                        <img src="https://wonderla.com/static/wonderla-brand-logo.png" class="h-8 mx-auto mb-6 invert grayscale contrast-200" alt="Logo">
+                        <div class="text-xs uppercase font-bold text-yellow-900 opacity-70">Total Amount</div>
+                        <div class="text-3xl font-black text-yellow-950" id="final-total">₹1084.40</div>
+                    </div>
+                    <div class="p-4">
+                        <h5 class="font-bold text-slate-800 mb-4">Select Payment Option</h5>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer border-blue-500 bg-blue-50">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">📱</span>
+                                    <div>
+                                        <div class="font-bold text-sm">UPI (GPay, PhonePe...)</div>
+                                        <div class="text-[10px] text-green-600">3 Offers Available</div>
+                                    </div>
+                                </div>
+                                <span>→</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">💳</span>
+                                    <div class="font-bold text-sm">Credit / Debit Cards</div>
+                                </div>
+                                <span>→</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-2xl">🏛️</span>
+                                    <div class="font-bold text-sm">Net Banking</div>
+                                </div>
+                                <span>→</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-full mt-8 bg-black !text-white" onclick="closeBookingModal()">Back to Home</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="booking-total-container" class="booking-footer" style="display: none;">
+                <div class="footer-total">
+                    <h5>Grand Total</h5>
+                    <p id="booking-total">₹0.00</p>
+                </div>
+                <button class="btn btn-proceed" onclick="nextStep(currentStep + 1)">
+                    Proceed
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        
+        // GSAP entry animations
+        gsap.from(".glass", {
+            opacity: 0,
+            y: 50,
+            stagger: 0.2,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+    </script>
+    <script src="js/main.js?v=1.0.2"></script>
+</body>
+</html>
