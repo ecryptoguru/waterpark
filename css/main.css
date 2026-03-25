@@ -252,7 +252,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.05); /* Account for parallax */
+  object-position: center center;
 }
 
 .hero-overlay {
@@ -261,7 +261,13 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(10, 78, 138, 0.6) 0%, rgba(10, 78, 138, 0.2) 100%);
+  /* Strong left anchor for text legibility, fades right to show image */
+  background: linear-gradient(
+    to right,
+    rgba(10, 25, 47, 0.72) 0%,
+    rgba(10, 25, 47, 0.35) 55%,
+    rgba(10, 25, 47, 0.10) 100%
+  );
 }
 
 .hero-content {
@@ -380,6 +386,46 @@ img {
 .explore-btn:hover span {
   transform: translateX(5px);
 }
+/* Ride Auto-Slider */
+.ride-slider-wrap {
+  overflow: hidden;
+  padding: 0.25rem 0 0.5rem;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+.ride-slider-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: ride-scroll 24s linear infinite;
+}
+.ride-slider-track:hover { animation-play-state: paused; }
+.ride-slider-track--slow { animation-duration: 16s; }
+
+@keyframes ride-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ride-slide-card {
+  flex-shrink: 0;
+  width: 280px;
+  background: white;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(10, 25, 47, 0.05);
+  box-shadow: 0 4px 20px rgba(10, 25, 47, 0.07);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+}
+.ride-slide-card:hover { transform: translateY(-8px); box-shadow: 0 14px 32px rgba(10, 25, 47, 0.13); }
+.ride-slide-card .slide-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s ease; }
+.ride-slide-card:hover .slide-img { transform: scale(1.08); }
+.ride-slide-body { padding: 1.1rem 1.4rem 1.4rem; }
+.ride-slide-body h4 { font-size: 0.95rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 0.3rem; font-family: var(--font-display); }
+.ride-slide-body p { font-size: 0.75rem; color: #64748b; line-height: 1.5; margin-bottom: 0.65rem; }
+.ride-slide-body a { color: var(--blue-primary); font-weight: 700; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 0.35rem; transition: gap 0.3s ease; }
+.ride-slide-body a:hover { gap: 0.6rem; }
+
 /* Calendar Styles */
 .calendar-wrapper {
   border: 1px solid #eee;

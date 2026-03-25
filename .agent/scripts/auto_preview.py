@@ -64,6 +64,7 @@ def start_server(port=3000):
     if not cmd:
         print("❌ No 'dev' or 'start' script found in package.json")
         sys.exit(1)
+    assert isinstance(cmd, list)  # narrow type for type checker
     
     # Add port env var if needed (simple heuristic)
     env = os.environ.copy()
@@ -71,14 +72,15 @@ def start_server(port=3000):
     
     print(f"🚀 Starting preview on port {port}...")
     
+    shell_cmd: str = " ".join(cmd) if isinstance(cmd, list) else cmd
     with open(LOG_FILE, "w") as log:
         process = subprocess.Popen(
-            cmd,
+            shell_cmd,
             cwd=str(root),
             stdout=log,
             stderr=log,
             env=env,
-            shell=True # Required for npm on windows often, or consistent path handling
+            shell=True 
         )
     
     PID_FILE.write_text(str(process.pid))
