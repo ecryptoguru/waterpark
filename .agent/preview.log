@@ -92,3 +92,29 @@
 ::1 - - [25/Mar/2026 18:47:20] "GET /assets/images/student.png HTTP/1.1" 200 -
 ::1 - - [25/Mar/2026 18:47:23] code 404, message File not found
 ::1 - - [25/Mar/2026 18:47:23] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [25/Mar/2026 18:51:20] "GET / HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /css/main.css?v=1.0.3 HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /css/animations.css HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /css/responsive.css HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/cover%20image.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/logo.jpeg HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/Multi%20Slide.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/Wave%20pool.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/crazy%20river.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /js/main.js?v=1.0.2 HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/Family%20Pool.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/Kids%20cove.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/Pendulum.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/waterpark/rain%20dance.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/amusement%20park/Colombus%201.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/amusement%20park/Octopus%201.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/amusement%20park/Ranger%201.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/amusement%20park/bunjee%20jumping%201.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/amusement%20park/caterpillar%201.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/Newimages/amusement%20park/clock%20tower%201.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/images/adult.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/images/child.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/images/senior.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:20] "GET /assets/images/student.png HTTP/1.1" 200 -
+::1 - - [25/Mar/2026 18:51:22] code 404, message File not found
+::1 - - [25/Mar/2026 18:51:22] "GET /favicon.ico HTTP/1.1" 404 -
