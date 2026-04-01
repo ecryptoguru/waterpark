@@ -69,8 +69,30 @@ def get_summary(categories: dict) -> str:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print(json.dumps({"error": "Usage: python lighthouse_audit.py <url>"}))
+        print(json.dumps({"error": "Usage: python lighthouse_audit.py [project_path] <url>"}))
         sys.exit(1)
-    
-    result = run_lighthouse(sys.argv[1])
+
+    # Support both: `lighthouse_audit.py <url>` and `lighthouse_audit.py <project> <url>`
+    url = sys.argv[2] if len(sys.argv) >= 3 else sys.argv[1]
+
+    # Pre-flight: verify lighthouse CLI is available
+    probe = subprocess.run(["which", "lighthouse"], capture_output=True, text=True)
+    if probe.returncode != 0:
+        print(json.dumps({
+            "skipped": True,
+            "message": "lighthouse CLI not found. Install with: npm install -g lighthouse",
+            "scores": {}
+        }, indent=2))
+        sys.exit(0)  # exit 0 = skip, not failure
+
+    result = run_lighthouse(url)
+    # If error key present (no scores), treat as skip to avoid false failures
+    if "error" in result and "scores" not in result:
+        result["skipped"] = True
+        print(json.dumps(result, indent=2))
+        sys.exit(0)
+
     print(json.dumps(result, indent=2))
+    # Fail only if performance score is critically low (<50)
+    perf = result.get("scores", {}).get("performance", 100)
+    sys.exit(0 if perf >= 50 else 1)

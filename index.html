@@ -11,39 +11,49 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@700;800;900&family=Pacifico&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind v4 Play CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              ocean: '#0A192F',
-              azure: '#0EA5E9',
-              sunset: '#F59E0B',
-              jungle: '#10B981',
-            }
-          }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        .heading-poppins { font-family: 'Poppins', sans-serif; text-shadow: 0px 4px 20px rgba(0,0,0,0.4); }
+        .summer-gradient { 
+            font-family: 'Pacifico', cursive; 
+            background: linear-gradient(90deg, #FFC107, #FF6A00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent; 
         }
-      }
-    </script>
+        .cta-gradient { background: linear-gradient(90deg, #FF7A00, #FF3D00); font-family: 'Poppins', sans-serif; font-weight: 600; color: white !important; border: none; }
+        #main-header.scrolled #nav-logo { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
+    </style>
+    
+    <!-- Tailwind CSS (Compiled) -->
+    <link rel="stylesheet" href="css/output.css">
+    
+    <!-- External Scripts (Deferred) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?v=1.0.3">
+    <link rel="stylesheet" href="css/main.css?v=1.0.5">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <!-- SEO Open Graph Tags -->
+    <meta property="og:title" content="Blue Splash | Premium Amusement & Waterpark">
+    <meta property="og:description" content="Experience the thrill of a lifetime with thrilling rides, giant wave pools, and unforgettable fun at Blue Splash Waterpark.">
+    <meta property="og:image" content="https://bluesplash.in/assets/Newimages/cover_image2.webp">
+    <meta property="og:url" content="https://bluesplash.in/">
+    <meta property="og:type" content="website">
+    
 </head>
 <body class="bg-slate-50">
 
     <!-- Header & Navigation -->
     <header id="main-header" class="glass !bg-transparent !border-none">
         <nav class="container nav-wrapper">
-            <div class="logo">
-                <a href="#home">
-                    <img src="assets/logo.jpeg" alt="Blue Splash Logo" id="nav-logo" class="h-12 rounded-lg">
+            <div class="logo mt-2 ml-2">
+                <a href="#home" class="flex items-center justify-center">
+                    <img src="assets/logo.webp" alt="Blue Splash Logo" id="nav-logo" class="h-10 md:h-12 w-auto object-contain bg-white rounded-xl shadow-md p-1.5" style="border: 1px solid rgba(255,255,255,0.2);">
                 </a>
             </div>
             
@@ -51,7 +61,6 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#rides">Rides</a></li>
                 <li><a href="tickets.html">Tickets</a></li>
-                <li><a href="events.html">Events</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
@@ -70,25 +79,80 @@
 
     <main>
         <!-- Section 1: Hero Section -->
-        <section id="home" class="hero relative overflow-hidden">
-            <div class="hero-background absolute inset-0">
-                <img src="assets/Newimages/cover image.webp" alt="Waterpark Hero" class="hero-img w-full h-full object-cover object-center">
-                <div class="hero-overlay absolute inset-0 bg-ocean/30"></div>
+        <section id="home" class="hero-mobile-section relative overflow-hidden">
+            <!-- Full-bleed background image -->
+            <div class="absolute inset-0">
+                <img src="assets/Newimages/cover_image2.webp" alt="Blue Splash Waterpark — wave pool with guests" class="w-full h-full object-cover" style="object-position: 70% 100%;">
+                <!-- Gradient: Adjusted to clearly show the bottom area -->
+                <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.65) 100%);"></div>
             </div>
-            
-            <div class="container hero-content relative z-10 text-white" data-aos="fade-up">
-                <span class="hero-badge animate fadeInUp ocean-grad border border-white/20 shadow-xl shadow-azure/20">🌊 Season 2026 — Premium Experiences</span>
-                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight">Elevate Your <br><span class="text-sunset italic">Summer Fun</span></h1>
-                <p class="text-2xl font-body opacity-90 max-w-2xl mb-12">The premier island destination featuring world-class slides, legendary wave pools, and non-stop tropical vibes.</p>
-                <div class="hero-btns flex gap-6">
-                    <button class="btn btn-primary px-10 py-5" onclick="openBooking()">🎟 Reserve Tickets</button>
-                    <a href="#rides" class="btn btn-outline px-10 py-5">🎢 Explore Rides</a>
+
+            <!-- Content moved slightly up on mobile -->
+            <div class="hero-mobile-content absolute inset-0 w-full h-full z-10 flex flex-col items-center justify-center pb-[20vh] md:pb-16 text-center text-white px-5">
+                <!-- Headline -->
+                <h1 class="hero-mobile-headline mb-4 font-black text-white tracking-tight" style="font-family: 'Poppins', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.65);" data-aos="zoom-out-up" data-aos-duration="1000">
+                    Make Waves<br>
+                    This <span style="font-family: 'Pacifico', cursive; background: linear-gradient(90deg, #FFD700, #FF6B00); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.2em; font-weight: 400; font-style: normal; margin-left: 6px; filter: drop-shadow(0px 4px 12px rgba(255, 138, 0, 0.45));">Summer</span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="hero-mobile-sub mb-8 text-white text-center mx-auto" style="font-family: 'Inter', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.9); font-weight: 500;" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
+                    Thrilling rides, giant wave pools, and unforgettable<br class="hidden md:block"> fun for everyone.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="hero-mobile-btns w-full md:w-auto flex flex-col md:flex-row justify-center mb-5" style="gap: 16px;">
+                    <!-- Primary: orange/red gradient -->
+                    <button
+                        class="hero-btn-primary w-full md:w-auto md:px-8 flex items-center justify-center font-bold text-white cursor-pointer"
+                        style="font-family: 'Poppins', sans-serif; background: linear-gradient(90deg, #FF7A00 0%, #FF3D00 100%);"
+                        onclick="openBooking()"
+                    >
+                        <!-- Ticket SVG icon -->
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" style="margin-right:9px; transform:rotate(-30deg); flex-shrink:0;">
+                            <path d="M2 9v1a2 2 0 002 2v0a2 2 0 00-2 2v1a2 2 0 002 2h16a2 2 0 002-2v-1a2 2 0 00-2-2v0a2 2 0 002-2V9a2 2 0 00-2-2H4a2 2 0 00-2 2z"/>
+                        </svg>
+                        Book Tickets Now
+                    </button>
+
+                    <!-- Secondary: solid dark charcoal (NOT glass) -->
+                    <a
+                        href="#rides"
+                        class="hero-btn-secondary w-full md:w-auto md:px-8 flex items-center justify-center font-semibold text-white cursor-pointer"
+                        style="font-family: 'Poppins', sans-serif; background: rgba(18,18,35,0.82); border: 1.5px solid rgba(255,255,255,0.18);"
+                    >
+                        <!-- Rides bar-chart SVG icon -->
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" style="margin-right:9px; flex-shrink:0; opacity:0.9;">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6"  y1="20" x2="6"  y2="14"/>
+                        </svg>
+                        Explore Rides
+                    </a>
+                </div>
+
+                <!-- Stats bar -->
+                <div class="hero-stats-bar w-full flex items-center justify-center" style="gap: 0;">
+                    <div class="hero-stat flex items-center" style="gap:5px;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="#FFC107"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>4.5+ Rated</span>
+                    </div>
+                    <span class="hero-stat-divider">|</span>
+                    <div class="hero-stat flex items-center" style="gap:5px;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="#A2E2FF" opacity="0.95"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        <span>Family Friendly</span>
+                    </div>
+                    <span class="hero-stat-divider">|</span>
+                    <div class="hero-stat flex items-center" style="gap:5px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60C8FF" stroke-width="2"><path d="M2 12c1.5-4 4.5-6 10-6s8.5 2 10 6c-1.5 4-4.5 6-10 6s-8.5-2-10-6z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span>20+ Attractions</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Bottom Wave Divider -->
-            <div class="hero-wave absolute bottom-0 w-full leading-[0]">
-                <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+            <div class="hero-wave absolute bottom-0 w-full leading-[0] pointer-events-none" style="z-index:5;">
+                <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                     <path fill="#F8FAFC" fill-opacity="1" d="M0,96L80,85.3C160,75,320,53,480,53.3C640,53,800,75,960,85.3C1120,96,1280,96,1360,96L1440,96L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
                 </svg>
             </div>
@@ -98,7 +162,6 @@
         <section id="rides" class="attractions py-32 bg-slate-50">
             <div class="container">
                 <header class="section-header mb-20" data-aos="fade-up">
-                    <span class="section-tagline tracking-widest uppercase text-xs font-black text-azure mb-2 block">Legendary Rides</span>
                     <h2 class="text-4xl md:text-6xl font-black text-ocean">World-Class Attractions</h2>
                                  <!-- ── Row 1: Water Park ── -->
                 <div class="mb-32">
@@ -121,13 +184,15 @@
                             <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/rain dance.webp" alt="Rain Dance" class="slide-img"></div><div class="ride-slide-body"><h4>Rain Dance</h4><p>Dance under the drops — music, water, and vibes all in one!</p><a href="#">Explore →</a></div></div>
                             
                             <!-- set 2 (duplicate for seamless loop) -->
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Multi Slide.webp" alt="Multi Sliding" class="slide-img"></div><div class="ride-slide-body"><h4>Multi Sliding</h4><p>Slide into thrill — multiple lanes, double the fun, endless screams!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Wave pool.webp" alt="Wave Pool" class="slide-img"></div><div class="ride-slide-body"><h4>Wave Pool</h4><p>Ride the rhythm of the ocean — where every wave brings pure excitement!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/crazy river.webp" alt="Crazy River" class="slide-img"></div><div class="ride-slide-body"><h4>Crazy River</h4><p>Let the current carry you — a lazy ride with a wild twist!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Family Pool.webp" alt="Family Pool" class="slide-img"></div><div class="ride-slide-body"><h4>Family Pool</h4><p>Relax, splash, and bond — fun-filled moments for the whole family.</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Kids cove.webp" alt="Pandubi" class="slide-img"></div><div class="ride-slide-body"><h4>Pandubi <span style="font-size:.7rem;color:#94a3b8;font-weight:600">Submarine Ride</span></h4><p>Dive into adventure — a thrilling ride beneath the waves!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Pendulum.webp" alt="Pendulum" class="slide-img"></div><div class="ride-slide-body"><h4>Pendulum</h4><p>Swing into the sky — feel the rush with every gravity-defying arc!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/rain dance.webp" alt="Rain Dance" class="slide-img"></div><div class="ride-slide-body"><h4>Rain Dance</h4><p>Dance under the drops — music, water, and vibes all in one!</p><a href="#">Explore →</a></div></div>
+                            <div class="ride-slider-track" aria-hidden="true" style="display: contents;">
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Multi Slide.webp" alt="Multi Sliding" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Multi Sliding</h4><p>Slide into thrill — multiple lanes, double the fun, endless screams!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Wave pool.webp" alt="Wave Pool" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Wave Pool</h4><p>Ride the rhythm of the ocean — where every wave brings pure excitement!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/crazy river.webp" alt="Crazy River" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Crazy River</h4><p>Let the current carry you — a lazy ride with a wild twist!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Family Pool.webp" alt="Family Pool" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Family Pool</h4><p>Relax, splash, and bond — fun-filled moments for the whole family.</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Kids cove.webp" alt="Pandubi" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Pandubi <span style="font-size:.7rem;color:#94a3b8;font-weight:600">Submarine Ride</span></h4><p>Dive into adventure — a thrilling ride beneath the waves!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/Pendulum.webp" alt="Pendulum" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Pendulum</h4><p>Swing into the sky — feel the rush with every gravity-defying arc!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/waterpark/rain dance.webp" alt="Rain Dance" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Rain Dance</h4><p>Dance under the drops — music, water, and vibes all in one!</p><a href="#">Explore →</a></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,12 +217,14 @@
                             <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/clock tower 1.webp" alt="Clock Tower" class="slide-img"></div><div class="ride-slide-body"><h4>Clock Tower</h4><p>Spin through time with every tick — where thrill meets timeless excitement!</p><a href="#">Explore →</a></div></div>
                             
                             <!-- set 2 (duplicate for seamless loop) -->
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/Colombus 1.webp" alt="Columbus" class="slide-img"></div><div class="ride-slide-body"><h4>Columbus</h4><p>Sail the waves of adrenaline on a daring high-seas adventure!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/Octopus 1.webp" alt="Octopus" class="slide-img"></div><div class="ride-slide-body"><h4>Octopus</h4><p>Get caught in the tentacles of fun with spins that never stop!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/Ranger 1.webp" alt="Ranger" class="slide-img"></div><div class="ride-slide-body"><h4>Ranger</h4><p>Swing into the sky and back with heart-pounding speed and height!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/bunjee jumping 1.webp" alt="Bungee Jumping" class="slide-img"></div><div class="ride-slide-body"><h4>Bungee Jumping</h4><p>Take the leap, feel the rush — defy gravity like never before!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/caterpillar 1.webp" alt="Dancing Car" class="slide-img"></div><div class="ride-slide-body"><h4>Dancing Car</h4><p>Twist, turn, and groove — where every ride feels like a dance party!</p><a href="#">Explore →</a></div></div>
-                            <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/clock tower 1.webp" alt="Clock Tower" class="slide-img"></div><div class="ride-slide-body"><h4>Clock Tower</h4><p>Spin through time with every tick — where thrill meets timeless excitement!</p><a href="#">Explore →</a></div></div>
+                            <div class="ride-slider-track" aria-hidden="true" style="display: contents;">
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/Colombus 1.webp" alt="Columbus" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Columbus</h4><p>Sail the waves of adrenaline on a daring high-seas adventure!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/Octopus 1.webp" alt="Octopus" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Octopus</h4><p>Get caught in the tentacles of fun with spins that never stop!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/Ranger 1.webp" alt="Ranger" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Ranger</h4><p>Swing into the sky and back with heart-pounding speed and height!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/bunjee jumping 1.webp" alt="Bungee Jumping" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Bungee Jumping</h4><p>Take the leap, feel the rush — defy gravity like never before!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/caterpillar 1.webp" alt="Dancing Car" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Dancing Car</h4><p>Twist, turn, and groove — where every ride feels like a dance party!</p><a href="#">Explore →</a></div></div>
+                                <div class="ride-slide-card"><div class="overflow-hidden" style="aspect-ratio:4/3"><img src="assets/Newimages/amusement park/clock tower 1.webp" alt="Clock Tower" class="slide-img" loading="lazy" decoding="async"></div><div class="ride-slide-body"><h4>Clock Tower</h4><p>Spin through time with every tick — where thrill meets timeless excitement!</p><a href="#">Explore →</a></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -170,51 +237,120 @@
             <div class="container relative z-10 max-w-3xl" data-aos="zoom-in">
                 <h2 class="text-white text-4xl md:text-6xl font-black mb-8 leading-tight">Ready for Your <br><span class="text-sunset">Best Summer Ever?</span></h2>
                 <div class="flex flex-col md:flex-row gap-6 justify-center">
-                    <a href="tickets.html" class="btn btn-primary px-12 py-6 text-xl shadow-2xl shadow-sunset/40">Secure Your Passes</a>
-                    <a href="events.html" class="btn btn-outline border-white/20 px-12 py-6 text-xl">View Events Calendar</a>
+                    <a href="tickets.html" class="btn px-12 py-6 text-xl shadow-2xl shadow-sunset/40 cta-gradient rounded-full">Book Tickets</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer Integrated with Premium Styling -->
-    <footer class="bg-ocean text-white border-t border-white/5 pt-24 pb-12">
-        <div class="container grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-            <div class="col-span-1 md:col-span-2">
-                <img src="assets/logo.jpeg" alt="Blue Splash" class="h-16 rounded-xl bg-white p-2 mb-8">
-                <p class="text-white/50 max-w-xs mb-8 text-lg">Leading the way in premium aquatic adventure and family island experiences.</p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-azure transition-colors">📸</a>
-                    <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-azure transition-colors">📘</a>
-                    <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-azure transition-colors">🐦</a>
+    <!-- Footer -->
+    <footer class="bg-ocean text-white border-t border-white/5 pt-20 pb-10">
+        <div class="container">
+            <!-- Footer Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+
+                <!-- Contact Us -->
+                <div id="contact">
+                    <h3 class="font-bold mb-6 uppercase tracking-widest text-sm text-azure">Contact Us</h4>
+                    <div class="space-y-4 mb-8">
+                        <!-- Address -->
+                        <div class="flex items-start gap-3">
+                            <svg class="text-azure flex-shrink-0 w-5 h-5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <p class="text-white/70 text-sm leading-relaxed">Puri-Konark Marine Drive,<br>Beladal, NH 316, Odisha</p>
+                        </div>
+                        <!-- Phone -->
+                        <div class="flex items-center gap-3">
+                            <svg class="text-azure flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <a href="tel:+917066478500" class="text-white/70 text-sm hover:text-azure transition-colors">+91 7066478500</a>
+                        </div>
+                        <!-- Email -->
+                        <div class="flex items-center gap-3">
+                            <svg class="text-azure flex-shrink-0 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <a href="mailto:support@bluesplash.in" class="text-white/70 text-sm hover:text-azure transition-colors">support@bluesplash.in</a>
+                        </div>
+                    </div>
+                    <!-- Social Links -->
+                    <div class="flex gap-3">
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-azure transition-all duration-200 cursor-pointer" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-azure transition-all duration-200 cursor-pointer" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-azure transition-all duration-200 cursor-pointer" aria-label="YouTube">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Navigate -->
+                <div>
+                    <h3 class="font-bold mb-6 uppercase tracking-widest text-sm text-azure">Navigate</h4>
+                    <ul class="space-y-4 text-white/60 font-semibold">
+                        <li><a href="index.html" class="hover:text-sunset transition-colors">Home</a></li>
+                        <li><a href="tickets.html" class="hover:text-sunset transition-colors">Tickets</a></li>
+                        <li><a href="#rides" class="hover:text-sunset transition-colors">Rides</a></li>
+                        <li><a href="#contact" class="hover:text-sunset transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Location / Map -->
+                <div>
+                    <h3 class="font-bold mb-6 uppercase tracking-widest text-sm text-azure">Find Us</h4>
+                    <a 
+                        href="https://maps.google.com/?q=Blue+Splash+Waterpark+Puri+Konark+Marine+Drive+Odisha" 
+                        target="_blank" 
+                        rel="noopener"
+                        class="block w-full h-36 rounded-2xl bg-white/10 mb-5 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-azure/50 transition-all duration-300"
+                        aria-label="Open Blue Splash location in Google Maps"
+                    >
+                        <img 
+                            src="assets/map_screenshot.webp" 
+                            alt="Blue Splash Waterpark location map" 
+                            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="px-4 py-2 bg-azure/90 backdrop-blur-sm text-white rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                Open in Google Maps
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
             </div>
-            <div>
-                <h4 class="font-bold mb-8 uppercase tracking-widest text-sm text-azure">Navigate</h4>
-                <ul class="space-y-4 text-white/60 font-semibold">
-                    <li><a href="index.html" class="hover:text-sunset transition-colors">Home</a></li>
-                    <li><a href="tickets.html" class="hover:text-sunset transition-colors">Tickets</a></li>
-                    <li><a href="events.html" class="hover:text-sunset transition-colors">Events</a></li>
-                    <li><a href="#rides" class="hover:text-sunset transition-colors">Rides</a></li>
-                </ul>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/10 pt-8 text-center text-white/30 text-xs tracking-widest uppercase">
+                &copy; 2026 Blue Splash Waterpark &mdash; All rights reserved.
             </div>
-            <div>
-                <h4 class="font-bold mb-8 uppercase tracking-widest text-sm text-azure">Inquiries</h4>
-                <p class="text-white/60 mb-4">Puri-Konark Marine Drive,<br>Beladal, NH 316</p>
-                <p class="text-white font-bold mb-2">+91 7066478500</p>
-                <p class="text-white/40 text-sm">support@bluesplash.in</p>
-            </div>
-        </div>
-        <div class="container text-center border-t border-white/10 pt-12 text-white/20 text-xs tracking-widest uppercase">
-            &copy; 2026 Blue Splash Waterpark. Engineered for Excellence with 🌊
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Scripts moved to head with defer for performance tracking -->
     <script>
-        AOS.init({ duration: 1000, once: true });
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 1000, once: true });
+            }
+        });
         
         // Sticky Header Effect
         window.addEventListener('scroll', () => {
@@ -232,7 +368,6 @@
             <div class="wizard-nav">
                 <div class="wizard-nav-item active"><div class="nav-dot"></div><span class="nav-label">Date</span></div>
                 <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Tickets</span></div>
-                <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Add-ons</span></div>
                 <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Billing</span></div>
                 <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Final</span></div>
             </div>
@@ -279,9 +414,9 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="adult" onclick="updateQty('adult', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('adult', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('adult', -1)">-</button>
                                     <span id="qty-adult" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('adult', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('adult', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -298,9 +433,9 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="child" onclick="updateQty('child', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('child', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('child', -1)">-</button>
                                     <span id="qty-child" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('child', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('child', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -319,9 +454,9 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="senior" onclick="updateQty('senior', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('senior', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('senior', -1)">-</button>
                                     <span id="qty-senior" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('senior', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('senior', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -340,27 +475,17 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="student" onclick="updateQty('student', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('student', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('student', -1)">-</button>
                                     <span id="qty-student" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('student', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('student', 1)">+</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 3: Add-ons (Mocked) -->
+                <!-- Step 3: Review Your Booking (Moved from 4) -->
                 <div id="step-3" class="wizard-step">
-                    <div class="bg-blue-50 p-6 rounded-3xl text-center">
-                        <div class="text-4xl mb-4">🍽️</div>
-                        <h4 class="text-ocean font-bold text-lg mb-2">Meal Combos</h4>
-                        <p class="text-slate-500 text-sm mb-6">Pre-book your meals and save up to 20%!</p>
-                        <button class="btn btn-primary bg-white !text-ocean border-2 border-ocean !py-3" onclick="nextStep(4)">Skip & Proceed</button>
-                    </div>
-                </div>
-
-                <!-- Step 4: Review Your Booking -->
-                <div id="step-4" class="wizard-step">
                     <div class="billing-summary">
                         <div class="summary-header">
                             <div>
@@ -396,47 +521,22 @@
                             <div class="flex items-center gap-2 text-xs text-slate-500">
                                 <input type="checkbox" required> I agree to the <a href="#" class="text-blue-600 underline">Terms & Conditions</a>
                             </div>
-                            <button type="submit" class="btn btn-primary w-full shadow-xl bg-blue-700 !py-4">BOOK NOW</button>
+                            <button type="submit" class="btn px-10 py-5 cta-gradient rounded-full shadow-lg w-full !text-lg text-white font-poppins font-bold uppercase tracking-wider">PAY WITH RAZORPAY</button>
                         </div>
                     </form>
                 </div>
 
-                <!-- Step 5: Final Payment Mock -->
-                <div id="step-5" class="wizard-step">
-                    <div class="bg-yellow-400 -m-8 p-8 pb-12 mb-4 text-center">
-                        <img src="https://wonderla.com/static/wonderla-brand-logo.png" class="h-8 mx-auto mb-6 invert grayscale contrast-200" alt="Logo">
-                        <div class="text-xs uppercase font-bold text-yellow-900 opacity-70">Total Amount</div>
-                        <div class="text-3xl font-black text-yellow-950" id="final-total">₹1084.40</div>
+                <!-- Step 4: Final Payment Mock (Moved from 5) -->
+                <div id="step-4" class="wizard-step">
+                    <div class="bg-green-100 -m-8 p-8 pb-12 mb-4 text-center">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-4">✓</div>
+                        <h4 class="text-green-800 font-bold text-xl mb-6">Payment Successful</h4>
+                        <div class="text-xs uppercase font-bold text-green-900 opacity-70">Amount Paid</div>
+                        <div class="text-4xl font-black text-green-950" id="final-total">₹1084.40</div>
                     </div>
-                    <div class="p-4">
-                        <h5 class="font-bold text-slate-800 mb-4">Select Payment Option</h5>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer border-blue-500 bg-blue-50">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">📱</span>
-                                    <div>
-                                        <div class="font-bold text-sm">UPI (GPay, PhonePe...)</div>
-                                        <div class="text-[10px] text-green-600">3 Offers Available</div>
-                                    </div>
-                                </div>
-                                <span>→</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">💳</span>
-                                    <div class="font-bold text-sm">Credit / Debit Cards</div>
-                                </div>
-                                <span>→</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">🏛️</span>
-                                    <div class="font-bold text-sm">Net Banking</div>
-                                </div>
-                                <span>→</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary w-full mt-8 bg-black !text-white" onclick="closeBookingModal()">Back to Home</button>
+                    <div class="p-4 text-center mt-8">
+                        <p class="text-slate-600 mb-6">Your e-tickets have been sent to your email and phone via SMS.</p>
+                        <button class="btn btn-primary w-full mt-2 bg-black !text-white !rounded-xl" onclick="closeBookingModal()">Done</button>
                     </div>
                 </div>
             </div>
@@ -453,6 +553,6 @@
             </div>
         </div>
     </div>
-    <script src="js/main.js?v=1.0.2"></script>
+    <script src="js/main.js?v=1.0.3" defer></script>
 </body>
 </html>

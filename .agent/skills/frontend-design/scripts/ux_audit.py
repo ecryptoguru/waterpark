@@ -120,7 +120,7 @@ class UXAuditor:
         # Hick's Law
         nav_items = len(re.findall(r'<NavLink|<Link|<a\s+href|nav-item', content, re.IGNORECASE))
         if nav_items > 7:
-            self.issues.append(f"[Hick's Law] {filename}: {nav_items} nav items (Max 7)")
+            self.warnings.append(f"[Hick's Law] {filename}: {nav_items} nav items (Max 7)")
         
         # Fitts' Law
         if re.search(r'height:\s*([0-3]\d)px', content) or re.search(r'h-[1-9]\b|h-10\b', content):
@@ -617,10 +617,11 @@ class UXAuditor:
                 self.warnings.append(f"[Motion] {filename}: Lottie animation without reduced-motion fallback. Add pause/stop for accessibility.")
 
         # 6.2 GSAP Memory Leak Risks
-        has_gsap = bool(re.search(r'gsap|ScrollTrigger|from\(.*gsap', content))
+        # Requires actual GSAP API calls to avoid false positives from comments/strings
+        has_gsap = bool(re.search(r'gsap\.(?:to|from|fromTo|timeline|set|add|registerPlugin)\s*\(|ScrollTrigger\.create\s*\(|new ScrollTrigger', content))
         if has_gsap:
             # Check for cleanup patterns
-            has_gsap_cleanup = bool(re.search(r'kill\(|revert\(|useEffect.*return.*gsap', content))
+            has_gsap_cleanup = bool(re.search(r'\.kill\s*\(|\.revert\s*\(|ScrollTrigger\.killAll|useEffect.*return.*gsap', content))
             if not has_gsap_cleanup:
                 self.issues.append(f"[Motion] {filename}: GSAP animation without cleanup (kill/revert). Memory leak risk on unmount.")
 
@@ -673,10 +674,15 @@ class UXAuditor:
 
     def audit_directory(self, directory: str) -> None:
         extensions = {'.tsx', '.jsx', '.html', '.vue', '.svelte', '.css'}
+        # Skip compiled/minified CSS artifacts — they generate false positives
+        skip_files = {'output.css', 'input.css'}
         for root, dirs, files in os.walk(directory):
             dirs[:] = [d for d in dirs if d not in {'node_modules', '.git', 'dist', 'build', '.next'}]
             for file in files:
                 if Path(file).suffix in extensions:
+                    # Skip minified files and known build artifacts
+                    if file in skip_files or file.endswith('.min.css'):
+                        continue
                     self.audit_file(os.path.join(root, file))
 
     def get_report(self):

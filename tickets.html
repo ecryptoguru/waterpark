@@ -13,27 +13,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@700;800;900&family=Pacifico&display=swap" rel="stylesheet">
     
-    <!-- Tailwind v4 Play CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              ocean: '#0A192F',
-              azure: '#0EA5E9',
-              sunset: '#F59E0B',
-              jungle: '#10B981',
-            }
-          }
-        }
-      }
-    </script>
-
+    <!-- Tailwind CSS (Compiled) -->
+    <link rel="stylesheet" href="css/output.css">
+    
+    <!-- External Scripts (Deferred) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+    
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css?v=1.0.3">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <!-- SEO Open Graph Tags -->
+    <meta property="og:title" content="Blue Splash Tickets | Book Your Thrills">
+    <meta property="og:description" content="Secure your spot at the wildest waterpark in town. Book Blue Splash Waterpark tickets online.">
+    <meta property="og:image" content="https://bluesplash.in/assets/Newimages/cover_image2.webp">
+    <meta property="og:url" content="https://bluesplash.in/tickets.html">
+    <meta property="og:type" content="website">
+
 </head>
 <body class="bg-slate-50">
 
@@ -42,7 +40,7 @@
         <nav class="container nav-wrapper">
             <div class="logo">
                 <a href="index.html">
-                    <img src="assets/logo.jpeg" alt="Blue Splash Logo" id="nav-logo" class="h-12 rounded-lg">
+                    <img src="assets/logo.webp" alt="Blue Splash Logo" id="nav-logo" class="h-10 md:h-12 w-auto object-contain bg-white rounded-xl shadow-md p-1.5" style="border: 1px solid rgba(255,255,255,0.2);">
                 </a>
             </div>
             
@@ -50,7 +48,6 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#rides">Rides</a></li>
                 <li><a href="tickets.html" class="text-orange-400">Tickets</a></li>
-                <li><a href="events.html">Events</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
 
@@ -154,7 +151,6 @@
             <div class="wizard-nav">
                 <div class="wizard-nav-item active"><div class="nav-dot"></div><span class="nav-label">Date</span></div>
                 <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Tickets</span></div>
-                <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Add-ons</span></div>
                 <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Billing</span></div>
                 <div class="wizard-nav-item"><div class="nav-dot"></div><span class="nav-label">Final</span></div>
             </div>
@@ -201,9 +197,9 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="adult" onclick="updateQty('adult', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('adult', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('adult', -1)">-</button>
                                     <span id="qty-adult" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('adult', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('adult', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -220,9 +216,9 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="child" onclick="updateQty('child', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('child', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('child', -1)">-</button>
                                     <span id="qty-child" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('child', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('child', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -241,9 +237,9 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="senior" onclick="updateQty('senior', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('senior', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('senior', -1)">-</button>
                                     <span id="qty-senior" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('senior', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('senior', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -262,27 +258,17 @@
                             <div class="add-btn-container">
                                 <button class="btn-add" data-ticket="student" onclick="updateQty('student', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('student', -1)">-</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('student', -1)">-</button>
                                     <span id="qty-student" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-6 !h-6" onclick="updateQty('student', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('student', 1)">+</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 3: Add-ons (Mocked) -->
+                <!-- Step 3: Review Your Booking -->
                 <div id="step-3" class="wizard-step">
-                    <div class="bg-blue-50 p-6 rounded-3xl text-center">
-                        <div class="text-4xl mb-4">🍽️</div>
-                        <h4 class="text-ocean font-bold text-lg mb-2">Meal Combos</h4>
-                        <p class="text-slate-500 text-sm mb-6">Pre-book your meals and save up to 20%!</p>
-                        <button class="btn btn-primary bg-white !text-ocean border-2 border-ocean !py-3" onclick="nextStep(4)">Skip & Proceed</button>
-                    </div>
-                </div>
-
-                <!-- Step 4: Review Your Booking -->
-                <div id="step-4" class="wizard-step">
                     <div class="billing-summary">
                         <div class="summary-header">
                             <div>
@@ -318,47 +304,22 @@
                             <div class="flex items-center gap-2 text-xs text-slate-500">
                                 <input type="checkbox" required> I agree to the <a href="#" class="text-blue-600 underline">Terms & Conditions</a>
                             </div>
-                            <button type="submit" class="btn btn-primary w-full shadow-xl bg-blue-700 !py-4">BOOK NOW</button>
+                            <button type="submit" class="btn px-10 py-5 cta-gradient rounded-full shadow-lg w-full !text-lg text-white font-semibold uppercase tracking-wider" style="font-family:'Poppins',sans-serif; background:linear-gradient(90deg,#FF7A00,#FF3D00);">PAY WITH RAZORPAY</button>
                         </div>
                     </form>
                 </div>
 
-                <!-- Step 5: Final Payment Mock -->
-                <div id="step-5" class="wizard-step">
-                    <div class="bg-yellow-400 -m-8 p-8 pb-12 mb-4 text-center">
-                        <img src="https://wonderla.com/static/wonderla-brand-logo.png" class="h-8 mx-auto mb-6 invert grayscale contrast-200" alt="Logo">
-                        <div class="text-xs uppercase font-bold text-yellow-900 opacity-70">Total Amount</div>
-                        <div class="text-3xl font-black text-yellow-950" id="final-total">₹1084.40</div>
+                <!-- Step 4: Payment Success -->
+                <div id="step-4" class="wizard-step">
+                    <div class="bg-green-100 -m-8 p-8 pb-12 mb-4 text-center">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-3xl mx-auto mb-4">✓</div>
+                        <h4 class="text-green-800 font-bold text-xl mb-6">Payment Successful</h4>
+                        <div class="text-xs uppercase font-bold text-green-900 opacity-70">Amount Paid</div>
+                        <div class="text-4xl font-black text-green-950" id="final-total">₹0.00</div>
                     </div>
-                    <div class="p-4">
-                        <h5 class="font-bold text-slate-800 mb-4">Select Payment Option</h5>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer border-blue-500 bg-blue-50">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">📱</span>
-                                    <div>
-                                        <div class="font-bold text-sm">UPI (GPay, PhonePe...)</div>
-                                        <div class="text-[10px] text-green-600">3 Offers Available</div>
-                                    </div>
-                                </div>
-                                <span>→</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">💳</span>
-                                    <div class="font-bold text-sm">Credit / Debit Cards</div>
-                                </div>
-                                <span>→</span>
-                            </div>
-                            <div class="flex items-center justify-between p-4 border rounded-xl hover:bg-slate-50 cursor-pointer">
-                                <div class="flex items-center gap-3">
-                                    <span class="text-2xl">🏛️</span>
-                                    <div class="font-bold text-sm">Net Banking</div>
-                                </div>
-                                <span>→</span>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary w-full mt-8 bg-black !text-white" onclick="closeBookingModal()">Back to Home</button>
+                    <div class="p-4 text-center mt-8">
+                        <p class="text-slate-600 mb-6">Your e-tickets have been sent to your email and phone via SMS.</p>
+                        <button class="btn btn-primary w-full mt-2 bg-black !text-white !rounded-xl" onclick="closeBookingModal()">Done</button>
                     </div>
                 </div>
             </div>
@@ -376,21 +337,26 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-        
-        // GSAP entry animations
-        gsap.from(".glass", {
-            opacity: 0,
-            y: 50,
-            stagger: 0.2,
-            duration: 1.2,
-            ease: "power4.out"
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({ duration: 1000, once: true });
+            }
+            
+            // GSAP entry animations
+            if (typeof gsap !== 'undefined') {
+                const glassAnim = gsap.from(".glass", {
+                    opacity: 0,
+                    y: 50,
+                    stagger: 0.2,
+                    duration: 1.2,
+                    ease: "power4.out"
+                });
+                // Cleanup on page unload to prevent memory leaks
+                window.addEventListener('beforeunload', () => glassAnim.kill());
+            }
         });
     </script>
-    <script src="js/main.js?v=1.0.2"></script>
+    <script src="js/main.js?v=1.0.2" defer></script>
 </body>
 </html>

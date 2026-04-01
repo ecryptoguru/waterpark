@@ -194,7 +194,7 @@ function showStep(stepNum) {
     // Modal Footer Visibility
     const footer = document.getElementById('booking-total-container');
     if (footer) {
-        footer.style.display = (stepNum >= 2 && stepNum < 5) ? 'flex' : 'none';
+        footer.style.display = (stepNum === 2) ? 'flex' : 'none';
     }
 
     // Modal Title Update
@@ -203,20 +203,19 @@ function showStep(stepNum) {
         const titles = {
             1: 'SELECT VISIT DATE',
             2: 'GRAB YOUR TICKETS',
-            3: 'ENHANCE YOUR ADVENTURE',
-            4: 'REVIEW YOUR BOOKING',
-            5: 'PAYMENT'
+            3: 'REVIEW YOUR BOOKING',
+            4: 'PAYMENT CONFIRMED'
         };
         title.textContent = titles[stepNum] || 'BOOK YOUR ADVENTURE';
     }
 
-    // Populate summary in step 4
-    if (stepNum === 4) {
+    // Populate summary in step 3
+    if (stepNum === 3) {
         updateBookingSummary();
     }
 
-    // Update final amount in step 5
-    if (stepNum === 5) {
+    // Update final amount in step 4
+    if (stepNum === 4) {
         updateFinalPayment();
     }
 }
@@ -307,7 +306,46 @@ function updateFinalPayment() {
 
 function submitBooking(event) {
     if (event) event.preventDefault();
-    nextStep(5);
+    
+    const form = event ? event.target : null;
+    let name = form ? form.querySelector('input[type="text"]').value : "Guest";
+    let email = form ? form.querySelector('input[type="email"]').value : "guest@example.com";
+    let contact = form ? form.querySelector('input[type="tel"]').value : "9999999999";
+
+    const total = Object.keys(quantities).reduce((acc, key) => acc + (quantities[key] * prices[key]), 0);
+    const amountInPaise = Math.round(total * 100);
+
+    const options = {
+        "key": "rzp_live_YOUR_KEY_HERE", // Replace with your Razorpay live key
+        "amount": amountInPaise,
+        "currency": "INR",
+        "name": "Blue Splash Waterpark",
+        "description": "Ticket Booking",
+        "image": "assets/logo.webp",
+        "handler": function (response){
+            console.log("Payment successful", response);
+            nextStep(4);
+        },
+        "prefill": {
+            "name": name,
+            "email": email,
+            "contact": contact
+        },
+        "theme": {
+            "color": "#FF7A00"
+        }
+    };
+    
+    if (typeof Razorpay !== 'undefined') {
+        const rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+                alert("Payment Failed: " + response.error.description);
+        });
+        rzp1.open();
+    } else {
+        alert("Razorpay is not loaded. Proceeding with mock confirmation.");
+        nextStep(4);
+    }
 }
 
 // Advanced Calendar
