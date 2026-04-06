@@ -1232,6 +1232,17 @@ img {
 }
 
 /* Professional Ticket Card */
+.ticket-section-label {
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+  padding: 4px 0 8px;
+  border-bottom: 1px dashed #e2e8f0;
+  margin-bottom: 4px;
+}
+
 .ticket-card {
   display: flex;
   align-items: center;

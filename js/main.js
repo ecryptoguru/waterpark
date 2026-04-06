@@ -96,18 +96,24 @@ function initBtnEffects() {
 // Booking Modal Logic
 let currentStep = 1;
 let currentMonth = new Date();
+// Ticket types: standard + offer
 let quantities = {
-    adult: 0,
-    child: 0,
-    senior: 0,
-    student: 0
+    waterpark: 0,
+    amusement: 0,
+    combo: 0,
+    vip: 0,
+    student: 0,
+    family: 0,
+    group: 0
 };
 let prices = {
-    adult: 899,
-    child: 599.02,
-    senior: 666.74,
-    student: 399.15,
-    family: 2499.00
+    waterpark: 599,
+    amusement: 499,
+    combo: 899,
+    vip: 1199,
+    student: 399,
+    family: 1999,
+    group: 499    // per person; buy 4, get 1 free — applied in calculateTotal
 };
 let selectedDate = null;
 
@@ -253,10 +259,40 @@ function updateQty(type, change) {
     calculateTotal();
 }
 
+/**
+ * Calculates the grand total respecting group offer (buy 4, get 1 free)
+ * and family pack flat pricing.
+ */
+function getGrandTotal() {
+    let total = 0;
+    for (let type in quantities) {
+        if (type === 'group') {
+            const qty = quantities.group;
+            const freeTickets = Math.floor(qty / 5);
+            const chargedQty = qty - freeTickets;
+            total += chargedQty * prices.group;
+        } else {
+            total += quantities[type] * prices[type];
+        }
+    }
+    return total;
+}
+
 function calculateTotal() {
     let total = 0;
     for (let type in quantities) {
-        total += quantities[type] * prices[type];
+        if (type === 'group') {
+            // Buy 4 tickets, get 1 free (charged tickets = floor(qty / 5) * 4 + qty % 5)
+            const qty = quantities.group;
+            const freeTickets = Math.floor(qty / 5);
+            const chargedQty = qty - freeTickets;
+            total += chargedQty * prices.group;
+        } else if (type === 'family') {
+            // Family pack = flat ₹1999 per pack (each "unit" = 1 pack)
+            total += quantities.family * prices.family;
+        } else {
+            total += quantities[type] * prices[type];
+        }
     }
     
     const totalEl = document.getElementById('booking-total');
@@ -280,7 +316,7 @@ function updateBookingSummary() {
         summaryDate.textContent = selectedDate.toLocaleDateString('en-IN', options);
     }
     
-    const total = Object.keys(quantities).reduce((acc, key) => acc + (quantities[key] * prices[key]), 0);
+    const total = getGrandTotal();
     const summaryTotal = document.getElementById('summary-total');
     if (summaryTotal) {
         summaryTotal.textContent = `₹${total.toLocaleString('en-IN', {
@@ -294,7 +330,7 @@ function updateBookingSummary() {
  * Updates the final payment screen with the correct amount
  */
 function updateFinalPayment() {
-    const total = Object.keys(quantities).reduce((acc, key) => acc + (quantities[key] * prices[key]), 0);
+    const total = getGrandTotal();
     const finalAmountEl = document.getElementById('final-total');
     if (finalAmountEl) {
         finalAmountEl.textContent = `₹${total.toLocaleString('en-IN', {
@@ -312,7 +348,7 @@ function submitBooking(event) {
     let email = form ? form.querySelector('input[type="email"]').value : "guest@example.com";
     let contact = form ? form.querySelector('input[type="tel"]').value : "9999999999";
 
-    const total = Object.keys(quantities).reduce((acc, key) => acc + (quantities[key] * prices[key]), 0);
+    const total = getGrandTotal();
     const amountInPaise = Math.round(total * 100);
 
     const options = {

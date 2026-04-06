@@ -60,7 +60,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#rides">Rides</a></li>
-                <li><a href="tickets.html">Tickets</a></li>
+                <li><a href="#" onclick="openBooking(); return false;">Tickets</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
@@ -92,7 +92,7 @@
                 <!-- Headline -->
                 <h1 class="hero-mobile-headline mb-4 font-black text-white tracking-tight" style="font-family: 'Poppins', sans-serif; text-shadow: 0 4px 15px rgba(0,0,0,0.65);" data-aos="zoom-out-up" data-aos-duration="1000">
                     Make Waves<br>
-                    This <span style="font-family: 'Pacifico', cursive; background: linear-gradient(90deg, #FFD700, #FF6B00); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.2em; font-weight: 400; font-style: normal; margin-left: 6px; filter: drop-shadow(0px 4px 12px rgba(255, 138, 0, 0.45));">Summer</span>
+                    This <span style="font-family: 'Pacifico', cursive; background: linear-gradient(90deg, #FFEE00, #FF8000); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.2em; font-weight: 400; font-style: normal; margin-left: 6px; filter: drop-shadow(0px 4px 12px rgba(255, 138, 0, 0.45));">Summer</span>
                 </h1>
 
                 <!-- Subtitle -->
@@ -237,7 +237,7 @@
             <div class="container relative z-10 max-w-3xl" data-aos="zoom-in">
                 <h2 class="text-white text-4xl md:text-6xl font-black mb-8 leading-tight">Ready for Your <br><span class="text-sunset">Best Summer Ever?</span></h2>
                 <div class="flex flex-col md:flex-row gap-6 justify-center">
-                    <a href="tickets.html" class="btn px-12 py-6 text-xl shadow-2xl shadow-sunset/40 cta-gradient rounded-full">Book Tickets</a>
+                    <button onclick="openBooking()" class="btn px-12 py-6 text-xl shadow-2xl shadow-sunset/40 cta-gradient rounded-full">Book Tickets</button>
                 </div>
             </div>
         </section>
@@ -301,7 +301,7 @@
                     <h3 class="font-bold mb-6 uppercase tracking-widest text-sm text-azure">Navigate</h4>
                     <ul class="space-y-4 text-white/60 font-semibold">
                         <li><a href="index.html" class="hover:text-sunset transition-colors">Home</a></li>
-                        <li><a href="tickets.html" class="hover:text-sunset transition-colors">Tickets</a></li>
+                        <li><a href="#" onclick="openBooking(); return false;" class="hover:text-sunset transition-colors">Tickets</a></li>
                         <li><a href="#rides" class="hover:text-sunset transition-colors">Rides</a></li>
                         <li><a href="#contact" class="hover:text-sunset transition-colors">Contact</a></li>
                     </ul>
@@ -401,75 +401,102 @@
                 <!-- Step 2: Grab Your Tickets -->
                 <div id="step-2" class="wizard-step">
                     <div class="ticket-list custom-scrollbar max-h-[400px] overflow-y-auto pr-2">
-                        <!-- Adult -->
+
+                        <!-- ── Standard Tickets ── -->
+                        <div class="ticket-section-label">🎟️ Standard Tickets</div>
+
+                        <!-- Waterpark Only -->
                         <div class="ticket-card">
-                            <img src="assets/images/adult.png" alt="Adult">
+                            <div class="ticket-icon">🌊</div>
                             <div class="ticket-details">
-                                <h4>Adult</h4>
-                                <p>Unlimited access to all rides</p>
+                                <h4>Only Waterpark</h4>
+                                <p>Full access to all water rides & pools</p>
                                 <div class="ticket-pricing">
-                                    <span class="price-main">₹899.00</span>
+                                    <span class="price-main">₹599</span>
                                 </div>
                             </div>
                             <div class="add-btn-container">
-                                <button class="btn-add" data-ticket="adult" onclick="updateQty('adult', 1)">ADD</button>
+                                <button class="btn-add" data-ticket="waterpark" onclick="updateQty('waterpark', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('adult', -1)">-</button>
-                                    <span id="qty-adult" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('adult', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('waterpark', -1)">-</button>
+                                    <span id="qty-waterpark" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('waterpark', 1)">+</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- Child -->
+
+                        <!-- Amusement Only -->
                         <div class="ticket-card">
-                            <img src="assets/images/child.png" alt="Child">
+                            <div class="ticket-icon">🎢</div>
                             <div class="ticket-details">
-                                <h4>Child</h4>
-                                <p>Height between 85-140cms</p>
+                                <h4>Only Amusement</h4>
+                                <p>Full access to all amusement park rides</p>
                                 <div class="ticket-pricing">
-                                    <span class="price-main">₹599.02</span>
+                                    <span class="price-main">₹499</span>
                                 </div>
                             </div>
                             <div class="add-btn-container">
-                                <button class="btn-add" data-ticket="child" onclick="updateQty('child', 1)">ADD</button>
+                                <button class="btn-add" data-ticket="amusement" onclick="updateQty('amusement', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('child', -1)">-</button>
-                                    <span id="qty-child" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('child', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('amusement', -1)">-</button>
+                                    <span id="qty-amusement" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('amusement', 1)">+</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- Senior -->
+
+                        <!-- Combo -->
                         <div class="ticket-card">
-                            <img src="assets/images/senior.png" alt="Senior">
+                            <div class="ticket-icon">🌊🎢</div>
                             <div class="ticket-details">
-                                <h4>Senior Citizen</h4>
-                                <p>Ages 60+ (ID Required)</p>
+                                <h4>Waterpark + Amusement Combo</h4>
+                                <p>Unlimited access to both parks</p>
                                 <div class="ticket-pricing">
-                                    <span class="price-main">₹666.74</span>
-                                    <span class="price-old">₹899</span>
-                                    <span class="discount-tag">25% OFF</span>
+                                    <span class="price-main">₹899</span>
                                 </div>
                             </div>
                             <div class="add-btn-container">
-                                <button class="btn-add" data-ticket="senior" onclick="updateQty('senior', 1)">ADD</button>
+                                <button class="btn-add" data-ticket="combo" onclick="updateQty('combo', 1)">ADD</button>
                                 <div class="qty-control mt-1">
-                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('senior', -1)">-</button>
-                                    <span id="qty-senior" class="qty-val !text-sm">0</span>
-                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('senior', 1)">+</button>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('combo', -1)">-</button>
+                                    <span id="qty-combo" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('combo', 1)">+</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- Student -->
+
+                        <!-- VIP Combo -->
                         <div class="ticket-card">
-                            <img src="assets/images/student.png" alt="Student">
+                            <div class="ticket-icon">👑</div>
                             <div class="ticket-details">
-                                <h4>Student ID Offer</h4>
-                                <p>Valid ID card mandatory</p>
+                                <h4>VIP Combo Ticket</h4>
+                                <p>Both parks + priority access + lounge</p>
                                 <div class="ticket-pricing">
-                                    <span class="price-main">₹399.15</span>
-                                    <span class="price-old">₹899</span>
-                                    <span class="discount-tag">55% OFF</span>
+                                    <span class="price-main">₹1199</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="vip" onclick="updateQty('vip', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('vip', -1)">-</button>
+                                    <span id="qty-vip" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('vip', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ── Offer Tickets ── -->
+                        <div class="ticket-section-label">🏷️ Offer Tickets</div>
+
+                        <!-- Student Weekday Offer -->
+                        <div class="ticket-card">
+                            <div class="ticket-icon">🎓</div>
+                            <div class="ticket-details">
+                                <h4>Student Offer</h4>
+                                <p>Weekdays only (Mon–Fri) · Valid ID required</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹399</span>
+                                    <span class="discount-tag">Weekday Deal</span>
                                 </div>
                             </div>
                             <div class="add-btn-container">
@@ -481,6 +508,49 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Family Offer -->
+                        <div class="ticket-card">
+                            <div class="ticket-icon">👨‍👩‍👧‍👦</div>
+                            <div class="ticket-details">
+                                <h4>Family Offer</h4>
+                                <p>2 Adults + 2 Children · One pack = 4 entries</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹1999</span>
+                                    <span class="discount-tag">Family Pack</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="family" onclick="updateQty('family', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('family', -1)">-</button>
+                                    <span id="qty-family" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('family', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group Offer -->
+                        <div class="ticket-card">
+                            <div class="ticket-icon">👥</div>
+                            <div class="ticket-details">
+                                <h4>Group Offer</h4>
+                                <p>Buy 4 tickets, get 1 FREE · ₹499/person</p>
+                                <div class="ticket-pricing">
+                                    <span class="price-main">₹499<span style="font-size:0.7rem;font-weight:500;color:#64748b">/person</span></span>
+                                    <span class="discount-tag">Buy 4 Get 1 Free</span>
+                                </div>
+                            </div>
+                            <div class="add-btn-container">
+                                <button class="btn-add" data-ticket="group" onclick="updateQty('group', 1)">ADD</button>
+                                <div class="qty-control mt-1">
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('group', -1)">-</button>
+                                    <span id="qty-group" class="qty-val !text-sm">0</span>
+                                    <button class="qty-btn !w-11 !h-11" onclick="updateQty('group', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
