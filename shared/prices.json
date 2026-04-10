@@ -1,0 +1,15 @@
+{
+  "prices": {
+    "waterpark": 599,
+    "amusement": 499,
+    "combo": 899,
+    "vip": 1199,
+    "student": 399,
+    "family": 1999,
+    "group": 499
+  },
+  "metadata": {
+    "currency": "INR",
+    "lastUpdated": "2026-04-10"
+  }
+}

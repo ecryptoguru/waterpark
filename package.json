@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Premium Amusement & Waterpark Website",
   "scripts": {
-    "start": "python3 -m http.server 3000",
-    "dev": "python3 -m http.server 3000",
+    "start": "node dev-server.js",
+    "dev": "node dev-server.js",
     "build:css": "tailwindcss -i ./src/input.css -o ./css/output.css --minify",
     "watch:css": "tailwindcss -i ./src/input.css -o ./css/output.css --watch"
   },
