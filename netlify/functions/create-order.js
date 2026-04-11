@@ -102,7 +102,8 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 id: data.id,
                 amount: amountInPaise,
-                currency: "INR"
+                currency: "INR",
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
             })
         };
     } catch (error) {

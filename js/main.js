@@ -407,7 +407,7 @@ async function submitBooking(event) {
 
         // 2. Setup Razorpay checkout
         const options = {
-            "key": "rzp_test_SbosXGOvTDu2J2", // Public Key (Test)
+            "key": orderData.key, // Dynamic key from backend (.env)
             "amount": orderData.amount, // from backend
             "currency": "INR",
             "name": "Blue Splash Waterpark",
