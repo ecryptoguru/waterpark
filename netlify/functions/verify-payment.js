@@ -100,30 +100,61 @@ exports.handler = async (event, context) => {
 
         // 4. Trigger Brevo Email using Authoritative Data
         if (BREVO_API_KEY && user && user.email) {
-            try {
-const SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL || "bookings@bluesplash.in";
-const SENDER_NAME = process.env.BREVO_SENDER_NAME || "Blue Splash Waterpark";
+            const SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL || "bookings@bluesplash.in";
+            const SENDER_NAME = process.env.BREVO_SENDER_NAME || "Blue Splash Waterpark";
+            const LIST_ID = parseInt(process.env.BREVO_BOOKINGS_LIST_ID || "3", 10);
 
-const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
-    method: 'POST',
-    headers: {
-        'accept': 'application/json',
-        'api-key': BREVO_API_KEY,
-        'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-        sender: { name: SENDER_NAME, email: SENDER_EMAIL },
-        to: [{ email: user.email, name: user.name || "Customer" }],
-        subject: "Your Blue Splash Tickets Are Confirmed! 🌊",
-        htmlContent: getEmailTemplate(user.name || 'Guest', date || 'TBD', captureAmount, razorpay_order_id)
-    })
-});
+            // 4a. Send confirmation email
+            try {
+                const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'api-key': BREVO_API_KEY,
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sender: { name: SENDER_NAME, email: SENDER_EMAIL },
+                        to: [{ email: user.email, name: user.name || "Customer" }],
+                        subject: "Your Blue Splash Tickets Are Confirmed! 🌊",
+                        htmlContent: getEmailTemplate(user.name || 'Guest', date || 'TBD', captureAmount, razorpay_order_id)
+                    })
+                });
 
                 if (!brevoResponse.ok) {
-                    console.error("Brevo sending failed:", await brevoResponse.json());
+                    console.error("Brevo email failed:", await brevoResponse.json());
                 }
             } catch (emailErr) {
-                console.error("Brevo request error:", emailErr);
+                console.error("Brevo email error:", emailErr);
+            }
+
+            // 4b. Upsert contact into "Blue Splash Bookings" list
+            try {
+                const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'api-key': BREVO_API_KEY,
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: user.email,
+                        updateEnabled: true, // upsert — safe for repeat bookers
+                        attributes: {
+                            FIRSTNAME: user.name || "Guest",
+                            LAST_BOOKING_DATE: date || "",
+                            LAST_BOOKING_AMOUNT: captureAmount,
+                            LAST_ORDER_ID: razorpay_order_id
+                        },
+                        listIds: [LIST_ID]
+                    })
+                });
+
+                if (!contactResponse.ok) {
+                    console.error("Brevo contact upsert failed:", await contactResponse.json());
+                }
+            } catch (contactErr) {
+                console.error("Brevo contact error:", contactErr);
             }
         }
 
