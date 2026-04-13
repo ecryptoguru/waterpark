@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
-const PORT = 3001;
+const PORT = 3000;
 const PUBLIC_DIR = __dirname;
 const FUNCTIONS_DIR = path.join(__dirname, 'netlify/functions');
 
@@ -123,7 +123,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`🚀 Blue Splash Dev Server Bridge running at: http://localhost:${PORT}`);
+    console.log(`🚀 Blue Splash Dev Server Bridge running at: http://bluesplash.in:${PORT}`);
     console.log(`🛠️ Mapping /shared/ to Root Shared folder`);
     console.log(`🛠️ Mapping /.netlify/functions/ to netlify/functions/`);
 });
