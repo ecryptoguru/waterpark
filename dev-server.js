@@ -42,7 +42,7 @@ const MIME_TYPES = {
 
 const server = http.createServer(async (req, res) => {
     const parsedUrl = url.parse(req.url, true);
-    const pathname = parsedUrl.pathname;
+    const pathname = decodeURIComponent(parsedUrl.pathname);
 
     // 2. Handle Netlify Functions
     if (pathname.startsWith('/.netlify/functions/')) {
