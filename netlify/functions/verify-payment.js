@@ -1,44 +1,37 @@
 const crypto = require('crypto');
 
 /**
- * Builds the confirmation email HTML.
+ * Customer confirmation email HTML.
  */
-function getEmailTemplate(name, date, amount, orderId) {
+function getCustomerEmailTemplate(name, date, amount, orderId, ticketSummary, contact) {
     return `
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b; line-height: 1.6;">
             <div style="background: linear-gradient(90deg, #FF7A00, #FF3D00); padding: 40px 20px; text-align: center; border-radius: 16px 16px 0 0;">
-                <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Booking Confirmed!</h1>
+                <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Booking Confirmed! 🌊</h1>
             </div>
             <div style="background: white; padding: 40px 30px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 16px 16px;">
                 <p style="font-size: 18px; margin-bottom: 25px;">Hi <strong>${name}</strong>,</p>
                 <p>Your adventure is officially on the calendar! We've received your payment and your tickets are now active.</p>
                 
                 <div style="background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; padding: 25px; margin: 30px 0;">
-                    <h2 style="color: #FF7A00; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 15px 0;">Visit Summary</h2>
+                    <h2 style="color: #FF7A00; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 15px 0;">Booking Summary</h2>
                     <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 8px 0; color: #64748b;">Visit Date</td>
-                            <td style="padding: 8px 0; text-align: right; font-weight: 600;">${date}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; color: #64748b;">Amount Paid</td>
-                            <td style="padding: 8px 0; text-align: right; font-weight: 600; color: #0f172a;">₹${amount}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; color: #64748b;">Booking ID</td>
-                            <td style="padding: 8px 0; text-align: right; font-family: monospace; font-size: 12px;">${orderId}</td>
-                        </tr>
+                        <tr><td style="padding: 8px 0; color: #64748b;">Visit Date</td><td style="padding: 8px 0; text-align: right; font-weight: 600;">${date}</td></tr>
+                        <tr><td style="padding: 8px 0; color: #64748b;">Tickets</td><td style="padding: 8px 0; text-align: right; font-weight: 600;">${ticketSummary || 'See booking'}</td></tr>
+                        <tr><td style="padding: 8px 0; color: #64748b;">Amount Paid</td><td style="padding: 8px 0; text-align: right; font-weight: 600; color: #0f172a;">₹${amount} (GST Incl.)</td></tr>
+                        <tr><td style="padding: 8px 0; color: #64748b;">Contact</td><td style="padding: 8px 0; text-align: right;">${contact || 'N/A'}</td></tr>
+                        <tr><td style="padding: 8px 0; color: #64748b;">Booking ID</td><td style="padding: 8px 0; text-align: right; font-family: monospace; font-size: 12px;">${orderId}</td></tr>
                     </table>
                 </div>
 
                 <div style="text-align: center; margin-top: 35px;">
-                    <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">Simply show this email at the entrance to get your bands.</p>
+                    <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">Simply show this email at the entrance to get your wristbands.</p>
                     <a href="https://bluesplash.in" style="display: inline-block; background: #0f172a; color: white; padding: 14px 30px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px;">Visit Website</a>
                 </div>
             </div>
             <div style="text-align: center; padding: 30px 20px; color: #94a3b8; font-size: 12px;">
                 <p>&copy; 2026 Blue Splash Waterpark. All rights reserved.</p>
-                <p>Puri-Konark Marine Drive, Beladal, Odisha</p>
+                <p>Puri-Konark Marine Drive, Beladal, Odisha &nbsp;|&nbsp; +91 7066478501 / 7066478502</p>
             </div>
         </div>
     `;
@@ -97,14 +90,15 @@ exports.handler = async (event, context) => {
         }
 
         const captureAmount = (paymentData.amount / 100).toFixed(2); // Convert paise to INR
+        const ticketSummary = payload.ticketSummary || '';
 
-        // 4. Trigger Brevo Email using Authoritative Data
+        // 4. Send confirmation email to customer
         if (BREVO_API_KEY && user && user.email) {
-            const SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL || "bookings@bluesplash.in";
-            const SENDER_NAME = process.env.BREVO_SENDER_NAME || "Blue Splash Waterpark";
-            const LIST_ID = parseInt(process.env.BREVO_BOOKINGS_LIST_ID || "3", 10);
+            const SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL || 'support@bluesplash.in';
+            const SENDER_NAME = process.env.BREVO_SENDER_NAME || 'Blue Splash Waterpark';
+            const LIST_ID = parseInt(process.env.BREVO_BOOKINGS_LIST_ID || '3', 10);
 
-            // 4a. Send confirmation email
+            // 4a. Customer confirmation email
             try {
                 const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
                     method: 'POST',
@@ -115,17 +109,25 @@ exports.handler = async (event, context) => {
                     },
                     body: JSON.stringify({
                         sender: { name: SENDER_NAME, email: SENDER_EMAIL },
-                        to: [{ email: user.email, name: user.name || "Customer" }],
-                        subject: "Your Blue Splash Tickets Are Confirmed! 🌊",
-                        htmlContent: getEmailTemplate(user.name || 'Guest', date || 'TBD', captureAmount, razorpay_order_id)
+                        to: [{ email: user.email, name: user.name || 'Customer' }],
+                        subject: 'Your Blue Splash Tickets Are Confirmed! 🌊',
+                        htmlContent: getCustomerEmailTemplate(
+                            user.name || 'Guest',
+                            date || 'TBD',
+                            captureAmount,
+                            razorpay_order_id,
+                            ticketSummary,
+                            user.contact
+                        )
                     })
                 });
 
                 if (!brevoResponse.ok) {
-                    console.error("Brevo email failed:", await brevoResponse.json());
+                    const errBody = await brevoResponse.json();
+                    console.error('Brevo customer email failed [status:', brevoResponse.status, ']:', JSON.stringify(errBody));
                 }
             } catch (emailErr) {
-                console.error("Brevo email error:", emailErr);
+                console.error('Brevo customer email error:', emailErr);
             }
 
             // 4b. Upsert contact into "Blue Splash Bookings" list

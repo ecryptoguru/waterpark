@@ -297,26 +297,34 @@ function updateQty(type, change) {
             btnAdd.textContent = 'ADD';
         }
     }
+
+    // If student qty changes, re-render calendar to enable/disable weekends
+    if (type === 'student') {
+        updateCalendarDisplay();
+        const msg = document.getElementById('student-avail-msg');
+        if (msg) {
+            if (quantities.student > 0) {
+                msg.innerHTML = '<strong style="color:#ef4444;">Weekdays only (Mon\u2013Fri)</strong> \u00b7 Valid student ID required';
+            } else {
+                msg.textContent = 'Weekdays only (Mon\u2013Fri) \u00b7 Valid student ID required';
+            }
+        }
+    }
     
     calculateTotal();
 }
 
 /**
- * Calculates the grand total respecting group offer (buy 4, get 1 free)
- * and family pack flat pricing.
- * Single source of truth for frontend pricing.
+ * Calculates the grand total.
+ * Group Offer: 1 group = pay for 4 (₹499×4 = ₹1996), 5 people enter.
  */
 function calculateTotal() {
     let total = 0;
     for (const [type, qty] of Object.entries(quantities)) {
+        if (qty <= 0) continue;
         if (type === 'group') {
-            // Buy 4 tickets, get 1 free
-            const freeTickets = Math.floor(qty / 5);
-            const chargedQty = qty - freeTickets;
-            total += chargedQty * prices.group;
-        } else if (type === 'family') {
-            // Family pack = flat price per pack
-            total += qty * prices.family;
+            // 1 group unit = 4 paid tickets (5 people enter, 1 free)
+            total += qty * 4 * prices.group;
         } else if (prices[type]) {
             total += qty * prices[type];
         }
@@ -331,7 +339,13 @@ function calculateTotal() {
     }
     
     // Update summary counts
-    const visitorCount = Object.values(quantities).reduce((a, b) => a + b, 0);
+    // Group = 5 people per unit, family = 4 people per unit
+    let visitorCount = 0;
+    for (const [type, qty] of Object.entries(quantities)) {
+        if (type === 'group') visitorCount += qty * 5;
+        else if (type === 'family') visitorCount += qty * 4;
+        else visitorCount += qty;
+    }
     const summaryVisitors = document.getElementById('summary-visitors');
     if (summaryVisitors) summaryVisitors.textContent = visitorCount;
 
@@ -383,6 +397,21 @@ async function submitBooking(event) {
     let contact = form && form.querySelector('input[type="tel"]') ? form.querySelector('input[type="tel"]').value : "9999999999";
 
     const total = getGrandTotal();
+
+    // Build readable ticket summary for emails
+    const ticketLabels = {
+        waterpark: 'Only Waterpark',
+        amusement: 'Only Amusement Park',
+        combo: 'Waterpark + Amusement Combo',
+        vip: 'VIP Combo Ticket',
+        student: 'Student Offer (Only Waterpark)',
+        family: 'Family Offer (Only Water Park)',
+        group: 'Group Offer (Only Amusement Park)'
+    };
+    const ticketSummary = Object.entries(quantities)
+        .filter(([, qty]) => qty > 0)
+        .map(([type, qty]) => `${ticketLabels[type] || type} x${qty}${type === 'group' ? ' (5 ppl/group)' : ''}`)
+        .join(', ');
     
     // Disable submit button/show loading if applicable
     const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
@@ -426,8 +455,8 @@ async function submitBooking(event) {
                             razorpay_order_id: response.razorpay_order_id,
                             razorpay_signature: response.razorpay_signature,
                             user: { name, email, contact },
-                            // Note: backend now pulls 'total' and 'date' from source-of-truth
-                            date: selectedDate ? selectedDate.toDateString() : 'TBD'
+                            date: selectedDate ? selectedDate.toDateString() : 'TBD',
+                            ticketSummary
                         })
                     });
 
@@ -495,6 +524,9 @@ function updateCalendarDisplay() {
     const today = new Date();
     today.setHours(0,0,0,0);
 
+    // Check if student offer is selected — restrict to weekdays only
+    const studentSelected = quantities.student > 0;
+
     console.log(`Rendering ${monthNames[month]} ${year}, firstDay: ${firstDay}, totalDays: ${totalDays}`);
 
     // Padding for first day
@@ -507,10 +539,17 @@ function updateCalendarDisplay() {
         const dayEl = document.createElement('div');
         dayEl.className = 'calendar-day';
         const dateObj = new Date(year, month, d);
+        const dayOfWeek = dateObj.getDay(); // 0=Sun, 6=Sat
         
         // Disable past dates
         if (dateObj < today) {
             dayEl.classList.add('disabled');
+        }
+
+        // Disable weekends if student offer is selected
+        if (studentSelected && (dayOfWeek === 0 || dayOfWeek === 6)) {
+            dayEl.classList.add('disabled');
+            dayEl.title = 'Student offer is weekdays only';
         }
 
         if (selectedDate && dateObj.toDateString() === selectedDate.toDateString()) {
