@@ -303,6 +303,15 @@ img {
   font-size: 13px;
 }
 
+@media (max-width: 370px) {
+  .hero-stats-bar {
+    font-size: 10px;
+  }
+  .hero-stat-divider {
+    margin: 0 6px;
+  }
+}
+
 .hero-background {
   position: absolute;
   top: 0;
