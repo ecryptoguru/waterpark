@@ -28,10 +28,8 @@ function getGrandTotal(quantities) {
         if (isNaN(qty) || qty <= 0) continue;
 
         if (type === 'group') {
-            // Group Offer: Buy 4, Get 1 Free
-            const freeTickets = Math.floor(qty / 5);
-            const chargedQty = qty - freeTickets;
-            total += chargedQty * prices.group;
+            // Group Offer: Pay for 4, Get 5
+            total += qty * 4 * prices.group;
         } else if (type === 'family') {
             // Family Pack pricing
             total += qty * prices.family;

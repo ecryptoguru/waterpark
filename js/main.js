@@ -264,6 +264,34 @@ function showStep(stepNum) {
     if (stepNum === 4) {
         updateFinalPayment();
     }
+
+    // Update ticket availability in step 2
+    if (stepNum === 2) {
+        updateTicketAvailability();
+    }
+}
+
+/**
+ * Disables student offer on weekends
+ */
+function updateTicketAvailability() {
+    if (!selectedDate) return;
+    const dayOfWeek = selectedDate.getDay();
+    const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+    
+    const studentCard = document.getElementById('ticket-card-student');
+    if (studentCard) {
+        const msg = document.getElementById('student-avail-msg');
+        if (isWeekend) {
+            studentCard.classList.add('opacity-40', 'pointer-events-none', 'grayscale-[0.5]');
+            if (msg) msg.innerHTML = '<strong style="color:#ef4444;">Not available on Sat/Sun</strong>';
+            // Reset quantity if already selected
+            if (quantities.student > 0) updateQty('student', -quantities.student);
+        } else {
+            studentCard.classList.remove('opacity-40', 'pointer-events-none', 'grayscale-[0.5]');
+            if (msg) msg.textContent = 'Weekdays only (Mon\u2013Fri) \u00b7 Valid student ID required';
+        }
+    }
 }
 
 function nextStep(num) {
@@ -404,9 +432,9 @@ async function submitBooking(event) {
         amusement: 'Only Amusement Park',
         combo: 'Waterpark + Amusement Combo',
         vip: 'VIP Combo Ticket',
-        student: 'Student Offer (Only Waterpark)',
+        student: 'Student Offer',
         family: 'Family Offer (Only Water Park)',
-        group: 'Group Offer (Only Amusement Park)'
+        group: 'Group Offer (Pay for 4, Get 5)'
     };
     const ticketSummary = Object.entries(quantities)
         .filter(([, qty]) => qty > 0)
@@ -584,10 +612,10 @@ function initMobileMenu() {
 
         // Close menu when clicking links
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.onclick = () => {
+            link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 menuToggle.classList.remove('active');
-            };
+            });
         });
     }
 }
