@@ -110,6 +110,7 @@ exports.handler = async (event, context) => {
                     body: JSON.stringify({
                         sender: { name: SENDER_NAME, email: SENDER_EMAIL },
                         to: [{ email: user.email, name: user.name || 'Customer' }],
+                        cc: [{ email: 'retreatsungreen.2015@gmail.com', name: 'Blue Splash Admin' }],
                         subject: 'Your Blue Splash Tickets Are Confirmed! 🌊',
                         htmlContent: getCustomerEmailTemplate(
                             user.name || 'Guest',
